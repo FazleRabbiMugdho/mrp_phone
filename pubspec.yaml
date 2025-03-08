@@ -1,0 +1,42 @@
+name: mrp_phone
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.5.4 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  lottie: ^3.2.0
+  animated_splash_screen: ^1.3.0
+  get: ^4.7.2
+  firebase_database: ^10.5.7  # Downgraded for compatibility
+  firebase_core: ^2.27.2
+  firebase_auth: ^4.17.4
+  cloud_firestore: ^4.17.4
+  line_awesome_flutter: ^3.0.1
+  firebase_storage: ^11.7.7
+  image_picker: ^1.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1  # Downgraded to match stable version
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/welcomePage_images/welcome_screen_image.png
+    - assets/logo/google_logo.png
+    - assets/animations/Splash.json
+    - assets/OnBoarding gifs/ONboarding1.json
+    - assets/OnBoarding gifs/ONboarding2.json
+    - assets/OnBoarding gifs/ONboarding3.json
+    - assets/images/egg.png
+    - assets/images/milk.png
+    - assets/images/mango.png
+    - assets/images/profile/profile.png
