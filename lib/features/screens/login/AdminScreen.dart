@@ -19,6 +19,7 @@ class _AdminScreenState extends State<AdminScreen> {
   String adminFullName = '';
   String adminUniqueId = '';
   String currentUserId = '';
+  String adminLocation= '';
 
   @override
   void initState() {
@@ -36,18 +37,22 @@ class _AdminScreenState extends State<AdminScreen> {
         setState(() {
           adminFullName = userDoc['full_name'] ?? 'Admin';
           adminUniqueId = userDoc['unique_id'] ?? 'N/A';
+          adminLocation = userDoc['location'] ?? 'N/A';
         });
       }
     }
   }
 
   Stream<QuerySnapshot> _getFilteredTransactions() {
-    return (searchQuery.isEmpty)
-        ? FirebaseFirestore.instance.collection('transactions').snapshots()
-        : FirebaseFirestore.instance
-        .collection('transactions')
-        .where('sellerId', isEqualTo: searchQuery)
-        .snapshots();
+    Query query = FirebaseFirestore.instance.collection('transactions');
+    if (searchQuery.isNotEmpty) {
+      query = query.where('location', isEqualTo: adminLocation) // Always filter by location
+          .where('sellerId', isEqualTo: searchQuery)
+          .where('buyerId', isEqualTo: searchQuery);
+    } else {
+      query = query.where('location', isEqualTo: adminLocation);
+    }
+    return query.snapshots();
   }
 
   @override
@@ -98,13 +103,13 @@ class _AdminScreenState extends State<AdminScreen> {
                     ],
                   ),
                 ),
-                if (currentUserId == adminUniqueId)
+                if (adminUniqueId == adminUniqueId)
                   SizedBox(
                     width: 250,
                     child: TextField(
                       controller: searchController,
                       decoration: InputDecoration(
-                        labelText: 'Search Seller ID',
+                        labelText: 'Search Merchant ID',
                         prefixIcon: const Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
@@ -155,12 +160,13 @@ class _AdminScreenState extends State<AdminScreen> {
       ),
     );
   }
+}
+
 
   Future<void> _logout() async {
     await FirebaseAuth.instance.signOut();
     Get.offAll(() => const LoginScreen());
   }
-}
 
 
 

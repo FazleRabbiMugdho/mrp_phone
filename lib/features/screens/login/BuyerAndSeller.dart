@@ -25,10 +25,10 @@ class _BuyerandsellerState extends State<Buyerandseller> {
   @override
   void initState() {
     super.initState();
-    _fetchAdminInfo();
+    _fetchMerchantInfo();
   }
 
-  Future<void> _fetchAdminInfo() async {
+  Future<void> _fetchMerchantInfo() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       setState(() => currentUserId = user.uid);
